@@ -18,7 +18,7 @@ public class AboutActivity extends PreferenceActivity
     {
         super.onPostCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.about_menu);
+        addPreferencesFromResource(R.xml.menu_about);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {

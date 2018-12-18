@@ -19,7 +19,7 @@ public class AdvancedSettingsActivity extends PreferenceActivity implements OnSh
     {
         super.onPostCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.advanced_preferences);
+        addPreferencesFromResource(R.xml.preferences_advanced);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {

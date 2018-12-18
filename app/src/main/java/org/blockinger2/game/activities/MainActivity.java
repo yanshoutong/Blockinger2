@@ -53,8 +53,8 @@ public class MainActivity extends ListActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PreferenceManager.setDefaultValues(this, R.xml.simple_preferences, true);
-        PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, true);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences_simple, true);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences_advanced, true);
 
         /* Create Music */
         sound = new Sound(this);
@@ -69,7 +69,7 @@ public class MainActivity extends ListActivity
         // elements in a ListView
         adapter = new SimpleCursorAdapter(
             this,
-            R.layout.blockinger_list_item,
+            R.layout.list_item_blockinger,
             mc,
             new String[]{HighscoreOpenHelper.COLUMN_SCORE, HighscoreOpenHelper.COLUMN_PLAYERNAME},
             new int[]{R.id.text1, R.id.text2},
@@ -164,7 +164,7 @@ public class MainActivity extends ListActivity
 
     public void onClickStart(View view)
     {
-        dialogView = getLayoutInflater().inflate(R.layout.seek_bar_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.dialog_seek_bar, null);
         leveldialogtext = dialogView.findViewById(R.id.leveldialogleveldisplay);
         leveldialogBar = dialogView.findViewById(R.id.levelseekbar);
         leveldialogBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()

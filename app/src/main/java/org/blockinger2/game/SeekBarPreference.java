@@ -90,7 +90,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         try {
             LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            layout = (RelativeLayout) mInflater.inflate(R.layout.seek_bar_preference, parent, false);
+            layout = (RelativeLayout) mInflater.inflate(R.layout.preference_seek_bar, parent, false);
         } catch (Exception e) {
             Log.e(TAG, "Error creating seek bar preference", e);
         }

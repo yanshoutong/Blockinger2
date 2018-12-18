@@ -21,7 +21,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     {
         super.onPostCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.simple_preferences);
+        addPreferencesFromResource(R.xml.preferences_simple);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {

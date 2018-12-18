@@ -45,7 +45,7 @@
                     android:contentDescription="left move Button"
                     android:focusable="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/left_button_icon_noburn" />
+                    android:src="@drawable/button_left_blurred" />
 
                 <View
                     android:id="@+id/View03"
@@ -63,7 +63,7 @@
                     android:contentDescription="right Move Button"
                     android:focusable="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/right_button_icon_noburn" />
+                    android:src="@drawable/button_right_blurred" />
             </LinearLayout>
 
             <View
@@ -82,7 +82,7 @@
                 android:contentDescription="soft Drop Button"
                 android:focusable="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/soft_drop_button_icon_noburn" />
+                android:src="@drawable/button_soft_drop_blurred" />
         </LinearLayout>
 
         <View
@@ -144,7 +144,7 @@
                     android:contentDescription="rotate left Button"
                     android:focusable="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/rotate_left_button_icon_noburn" />
+                    android:src="@drawable/button_rotate_left_blurred" />
 
                 <View
                     android:id="@+id/View07"
@@ -162,7 +162,7 @@
                     android:contentDescription="rotate right Button"
                     android:focusable="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/rotate_right_button_icon_noburn" />
+                    android:src="@drawable/button_rotate_right_blurred" />
 
             </LinearLayout>
 
@@ -182,7 +182,7 @@
                 android:contentDescription="Hard Drop Button"
                 android:focusable="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/hard_drop_button_icon_noburn" />
+                android:src="@drawable/button_hard_drop_blurred" />
 
         </LinearLayout>
 

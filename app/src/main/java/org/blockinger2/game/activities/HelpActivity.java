@@ -30,7 +30,7 @@ public class HelpActivity extends PreferenceActivity
     {
         super.onPostCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.help_menu);
+        addPreferencesFromResource(R.xml.menu_help);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
