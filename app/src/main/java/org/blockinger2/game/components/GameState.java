@@ -1,20 +1,26 @@
 package org.blockinger2.game.components;
 
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import android.R.color;
+import android.preference.PreferenceManager;
 
 import org.blockinger2.game.PieceGenerator;
 import org.blockinger2.game.R;
 import org.blockinger2.game.activities.GameActivity;
-import org.blockinger2.game.pieces.*;
+import org.blockinger2.game.pieces.IPiece;
+import org.blockinger2.game.pieces.JPiece;
+import org.blockinger2.game.pieces.LPiece;
+import org.blockinger2.game.pieces.OPiece;
+import org.blockinger2.game.pieces.Piece;
+import org.blockinger2.game.pieces.SPiece;
+import org.blockinger2.game.pieces.TPiece;
+import org.blockinger2.game.pieces.ZPiece;
 
-import android.R.color;
-import android.preference.PreferenceManager;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
-
-public class GameState extends Component {
-
+public class GameState extends Component
+{
     public final static int state_startable = 0;
     public final static int state_running = 1;
     public final static int state_paused = 2;
@@ -72,19 +78,21 @@ public class GameState extends Component {
     private int popupDecay;
     private int softDropDistance;
 
-    private GameState(GameActivity ga) {
+    private GameState(GameActivity ga)
+    {
         super(ga);
         actions = 0;
         board = new Board(host);
         date = new GregorianCalendar();
-        formatter = new SimpleDateFormat("HH:mm:ss",Locale.US);
+        formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
         date.setTimeInMillis(60000);
-        if(formatter.format(date.getTime()).startsWith("23"))
+        if (formatter.format(date.getTime()).startsWith("23")) {
             hourOffset = 1;
-        else if(formatter.format(date.getTime()).startsWith("01"))
+        } else if (formatter.format(date.getTime()).startsWith("01")) {
             hourOffset = -1;
-        else
+        } else {
             hourOffset = 0;
+        }
 
         dropIntervals = host.getResources().getIntArray(R.array.intervals);
         singleLineScore = host.getResources().getInteger(R.integer.singleLineScore);
@@ -110,20 +118,21 @@ public class GameState extends Component {
 
         nextDropTime = host.getResources().getIntArray(R.array.intervals)[0];
 
-        playerDropInterval = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_softdropspeed", 60));
-        playerMoveInterval = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_movespeed", 60));
-        nextPlayerDropTime = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_softdropspeed", 60));
-        nextPlayerMoveTime = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_movespeed", 60));
+        playerDropInterval = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_softdropspeed", 60));
+        playerMoveInterval = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_movespeed", 60));
+        nextPlayerDropTime = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_softdropspeed", 60));
+        nextPlayerMoveTime = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_movespeed", 60));
 
         gameTime = 0;
-        if(PreferenceManager.getDefaultSharedPreferences(host).getString("pref_rng", "sevenbag").equals("sevenbag") ||
-                PreferenceManager.getDefaultSharedPreferences(host).getString("pref_rng", "7-Bag-Randomization (default)").equals("7-Bag-Randomization (default)"))
+        if (PreferenceManager.getDefaultSharedPreferences(host).getString("pref_rng", "sevenbag").equals("sevenbag") ||
+            PreferenceManager.getDefaultSharedPreferences(host).getString("pref_rng", "7-Bag-Randomization (default)").equals("7-Bag-Randomization (default)")) {
             rng = new PieceGenerator(PieceGenerator.STRAT_7BAG);
-        else
+        } else {
             rng = new PieceGenerator(PieceGenerator.STRAT_RANDOM);
+        }
 
         // Initialize Pieces
-        activePieces  = new Piece[7];
+        activePieces = new Piece[7];
         previewPieces = new Piece[7];
 
         activePieces[0] = new IPiece(host);
@@ -143,7 +152,7 @@ public class GameState extends Component {
         previewPieces[6] = new ZPiece(host);
 
         // starting pieces
-        activeIndex  = rng.next();
+        activeIndex = rng.next();
         previewIndex = rng.next();
         activePieces[activeIndex].setActive(true);
 
@@ -154,51 +163,62 @@ public class GameState extends Component {
         spawnTime = 0;
     }
 
-    public void setPlayerName(String string) {
+    public void setPlayerName(String string)
+    {
         playerName = string;
     }
 
-    public Board getBoard() {
+    public Board getBoard()
+    {
         return board;
     }
 
-    public String getPlayerName() {
+    public String getPlayerName()
+    {
         return playerName;
     }
 
-    public int getAutoDropInterval() {
-        return dropIntervals[Math.min(level,maxLevel)];
+    public int getAutoDropInterval()
+    {
+        return dropIntervals[Math.min(level, maxLevel)];
     }
 
-    public long getMoveInterval() {
+    public long getMoveInterval()
+    {
         return playerMoveInterval;
     }
 
-    public long getSoftDropInterval() {
+    public long getSoftDropInterval()
+    {
         return playerDropInterval;
     }
 
-    public void setRunning(boolean b) {
-        if(b) {
+    public void setRunning(boolean b)
+    {
+        if (b) {
             currentTime = System.currentTimeMillis();
-            if(stateOfTheGame != state_finished)
+            if (stateOfTheGame != state_finished) {
                 stateOfTheGame = state_running;
+            }
         } else {
-            if(stateOfTheGame == state_running)
+            if (stateOfTheGame == state_running) {
                 stateOfTheGame = state_paused;
+            }
         }
     }
 
-    public void clearLines(boolean playerHardDrop, int hardDropDistance) {
-        if(host == null)
+    public void clearLines(boolean playerHardDrop, int hardDropDistance)
+    {
+        if (host == null) {
             return;
+        }
 
         activePieces[activeIndex].place(board);
         int cleared = board.clearLines(activePieces[activeIndex].getDim());
         clearedLines += cleared;
         long addScore;
 
-        switch(cleared) {
+        switch (cleared) {
             case 1:
                 addScore = singleLineScore;
                 multitetris = false;
@@ -218,10 +238,11 @@ public class GameState extends Component {
                 popupTime = gameTime;
                 break;
             case 4:
-                if(multitetris)
+                if (multitetris) {
                     addScore = multiTetrisScore;
-                else
+                } else {
                     addScore = quadLineScore;
+                }
                 multitetris = true;
                 host.sound.tetrisSound();
                 popupTime = gameTime;
@@ -230,279 +251,333 @@ public class GameState extends Component {
                 addScore = 0;
                 //consecutiveBonusScore = 0;
                 host.sound.dropSound();
-                if((gameTime - popupTime) < (popupAttack + popupSustain))
+                if ((gameTime - popupTime) < (popupAttack + popupSustain)) {
                     popupTime = gameTime - (popupAttack + popupSustain);
+                }
                 break;
         }
         //long tempBonus = consecutiveBonusScore;
         //consecutiveBonusScore += addScore;
-        if(cleared > 0) {
+        if (cleared > 0) {
             /* HardDrop/SoftDrop Boni: we comply to Tetrisfriends rules now */
-            if(playerHardDrop) {
-                addScore += hardDropDistance*hardDropBonus;
+            if (playerHardDrop) {
+                addScore += hardDropDistance * hardDropBonus;
                 //addScore = (int)((float)addScore* (1.0f + ((float)hardDropDistance/(float)hardDropBonusFactor)));
             } else {
-                addScore += softDropDistance*softDropBonus;
+                addScore += softDropDistance * softDropBonus;
             }
         }
         score += addScore;// + tempBonus;
-        if(addScore != 0)
-            popupString = "+"+addScore;
+        if (addScore != 0) {
+            popupString = "+" + addScore;
+        }
         // host.saveScore(score); is not supported by ScoreDataSource
     }
 
-    public void pieceTransition(boolean eventVibrationEnabled) {
-        if(host == null)
+    public void pieceTransition(boolean eventVibrationEnabled)
+    {
+        if (host == null) {
             return;
+        }
 
         scheduleSpawn = true;
         //Delay Piece Transition only while vibration is playing
-        if(eventVibrationEnabled)
+        if (eventVibrationEnabled) {
             spawnTime = gameTime + spawn_delay;
-        else
+        } else {
             spawnTime = gameTime;
+        }
 
         activePieces[activeIndex].reset(host);
-        activeIndex  = previewIndex;
+        activeIndex = previewIndex;
         previewIndex = rng.next();
         activePieces[activeIndex].reset(host);
     }
 
-    public void hold() {
-        if(host == null)
+    public void hold()
+    {
+        if (host == null) {
             return;
-
-
+        }
     }
 
-    public void finishTransition() {
-        if(host == null)
+    public void finishTransition()
+    {
+        if (host == null) {
             return;
+        }
 
         scheduleSpawn = false;
         host.display.invalidatePhantom();
         activePieces[activeIndex].setActive(true);
-        setNextDropTime(gameTime + dropIntervals[Math.min(level,maxLevel)]);
+        setNextDropTime(gameTime + dropIntervals[Math.min(level, maxLevel)]);
         setNextPlayerDropTime(gameTime);
         setNextPlayerMoveTime(gameTime);
         softDropDistance = 0;
 
         // Checking for Defeat
-        if(!activePieces[activeIndex].setPosition(piece_start_x, 0, false, board)) {
+        if (!activePieces[activeIndex].setPosition(piece_start_x, 0, false, board)) {
             stateOfTheGame = state_finished;
             host.sound.gameOverSound();
-            host.gameOver(score, getTimeString(), (int)((float)actions*(60000.0f / gameTime)));
+            host.gameOver(score, getTimeString(), (int) ((float) actions * (60000.0f / gameTime)));
         }
     }
 
-    public boolean isResumable() {
+    public boolean isResumable()
+    {
         return (stateOfTheGame != state_finished);
     }
 
-    public String getScoreString() {
+    public String getScoreString()
+    {
         return "" + score;
     }
 
-    public Piece getActivePiece() {
+    public Piece getActivePiece()
+    {
         return activePieces[activeIndex];
     }
 
     /**
-     *
      * @param tempTime
      * @return true if controls is allowed to cycle()
      */
-    public boolean cycle(long tempTime) {
-        if(stateOfTheGame != state_running)
+    public boolean cycle(long tempTime)
+    {
+        if (stateOfTheGame != state_running) {
             return false;
+        }
 
         gameTime += (tempTime - currentTime);
         currentTime = tempTime;
 
         // Instant Placement
-        if(scheduleSpawn) {
-            if(gameTime >= spawnTime)
+        if (scheduleSpawn) {
+            if (gameTime >= spawnTime) {
                 finishTransition();
+            }
             return false;
         }
         return true;
     }
 
-    public String getLevelString() {
+    public String getLevelString()
+    {
         return "" + level;
     }
 
-    public String getTimeString() {
-        date.setTimeInMillis(gameTime + hourOffset*(3600000));
+    public String getTimeString()
+    {
+        date.setTimeInMillis(gameTime + hourOffset * (3600000));
         return formatter.format(date.getTime());
     }
 
-    public String getAPMString() {
-        if(host == null)
+    public String getAPMString()
+    {
+        if (host == null) {
             return "";
-        return String.valueOf((int)((float)actions*(60000.0f / gameTime)));
+        }
+        return String.valueOf((int) ((float) actions * (60000.0f / gameTime)));
     }
 
     @Override
-    public void reconnect(GameActivity ga) {
+    public void reconnect(GameActivity ga)
+    {
         super.reconnect(ga);
 
-        playerDropInterval = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(ga).getInt("pref_softdropspeed", 60));
-        playerMoveInterval = (int)(1000.0f / PreferenceManager.getDefaultSharedPreferences(ga).getInt("pref_movespeed", 60));
+        playerDropInterval = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(ga).getInt("pref_softdropspeed", 60));
+        playerMoveInterval = (int) (1000.0f / PreferenceManager.getDefaultSharedPreferences(ga).getInt("pref_movespeed", 60));
 
-        if(PreferenceManager.getDefaultSharedPreferences(ga).getString("pref_rng", "sevenbag").equals("sevenbag") ||
-                PreferenceManager.getDefaultSharedPreferences(ga).getString("pref_rng", "7-Bag-Randomization (default)").equals("7-Bag-Randomization (default)"))
+        if (PreferenceManager.getDefaultSharedPreferences(ga).getString("pref_rng", "sevenbag").equals("sevenbag") ||
+            PreferenceManager.getDefaultSharedPreferences(ga).getString("pref_rng", "7-Bag-Randomization (default)").equals("7-Bag-Randomization (default)")) {
             rng = new PieceGenerator(PieceGenerator.STRAT_7BAG);
-        else
+        } else {
             rng = new PieceGenerator(PieceGenerator.STRAT_RANDOM);
+        }
 
         board.reconnect(ga);
         setRunning(true);
     }
 
-    public void disconnect() {
+    public void disconnect()
+    {
         setRunning(false);
         board.disconnect();
         super.disconnect();
     }
 
-    public Piece getPreviewPiece() {
+    public Piece getPreviewPiece()
+    {
         return previewPieces[previewIndex];
     }
 
-    public long getTime() {
+    public long getTime()
+    {
         return gameTime;
     }
 
-    public void nextLevel() {
+    public void nextLevel()
+    {
         level++;
     }
 
-    public int getLevel() {
+    public int getLevel()
+    {
         return level;
     }
 
-    public int getMaxLevel() {
+    public int getMaxLevel()
+    {
         return maxLevel;
     }
 
-    public int getClearedLines() {
+    public int getClearedLines()
+    {
         return clearedLines;
     }
 
-    public void action() {
+    public void action()
+    {
         actions++;
     }
 
-    public void setNextPlayerDropTime(long time) {
+    public void setNextPlayerDropTime(long time)
+    {
         nextPlayerDropTime = time;
     }
 
-    public void setNextPlayerMoveTime(long time) {
+    public void setNextPlayerMoveTime(long time)
+    {
         nextPlayerMoveTime = time;
     }
 
-    public void setNextDropTime(long l) {
+    public void setNextDropTime(long l)
+    {
         nextDropTime = l;
     }
 
-    public long getNextPlayerDropTime() {
+    public long getNextPlayerDropTime()
+    {
         return nextPlayerDropTime;
     }
 
-    public long getNextDropTime() {
+    public long getNextDropTime()
+    {
         return nextDropTime;
     }
 
-    public long getNextPlayerMoveTime() {
+    public long getNextPlayerMoveTime()
+    {
         return nextPlayerMoveTime;
     }
 
-    public static void destroy() {
-        if(instance != null)
+    public static void destroy()
+    {
+        if (instance != null) {
             instance.disconnect();
+        }
         instance = null;
     }
 
-    public static GameState getInstance(GameActivity ga) {
-        if(instance == null)
+    public static GameState getInstance(GameActivity ga)
+    {
+        if (instance == null) {
             instance = new GameState(ga);
+        }
         return instance;
     }
 
-    public static GameState getNewInstance(GameActivity ga) {
+    public static GameState getNewInstance(GameActivity ga)
+    {
         instance = new GameState(ga);
         return instance;
     }
 
-    public static boolean hasInstance() {
+    public static boolean hasInstance()
+    {
         return (instance != null);
     }
 
-    public long getScore() {
+    public long getScore()
+    {
         return score;
     }
 
-    public int getAPM() {
-        return (int)((float)actions*(60000.0f / gameTime));
+    public int getAPM()
+    {
+        return (int) ((float) actions * (60000.0f / gameTime));
     }
 
-    public int getSongtime() {
+    public int getSongtime()
+    {
         return songtime;
     }
 
-    public static boolean isFinished() {
-        if(instance == null)
+    public static boolean isFinished()
+    {
+        if (instance == null) {
             return true;
+        }
         return !instance.isResumable();
     }
 
-    public void setSongtime(int songtime) {
+    public void setSongtime(int songtime)
+    {
         this.songtime = songtime;
     }
 
-    public void setLevel(int int1) {
+    public void setLevel(int int1)
+    {
         level = int1;
         nextDropTime = host.getResources().getIntArray(R.array.intervals)[int1];
-        clearedLines = 10*int1;
+        clearedLines = 10 * int1;
     }
 
-    public String getPopupString() {
+    public String getPopupString()
+    {
         return popupString;
     }
 
-    public int getPopupAlpha() {
+    public int getPopupAlpha()
+    {
         long x = gameTime - popupTime;
 
-        if(x < (popupAttack+popupSustain))
+        if (x < (popupAttack + popupSustain)) {
             return 255;
+        }
 
-        if(x < (popupAttack+popupSustain+popupDecay))
-            return (int)(255.0f*(1.0f + (((float)(popupAttack + popupSustain - x))/((float)popupDecay))));
+        if (x < (popupAttack + popupSustain + popupDecay)) {
+            return (int) (255.0f * (1.0f + (((float) (popupAttack + popupSustain - x)) / ((float) popupDecay))));
+        }
 
         return 0;
     }
 
-    public float getPopupSize() {
+    public float getPopupSize()
+    {
         long x = gameTime - popupTime;
 
-        if(x < popupAttack)
-            return (int)(60.0f*(1.0f + (((float)x)/((float)popupAttack))));
+        if (x < popupAttack) {
+            return (int) (60.0f * (1.0f + (((float) x) / ((float) popupAttack))));
+        }
 
         return 120;
     }
 
-    public int getPopupColor() {
-        if(host == null)
+    public int getPopupColor()
+    {
+        if (host == null) {
             return 0;
+        }
 
-        if(multitetris)
+        if (multitetris) {
             return host.getResources().getColor(R.color.yellow);
+        }
         return host.getResources().getColor(color.white);
     }
 
-    public void incSoftDropCounter() {
+    public void incSoftDropCounter()
+    {
         softDropDistance++;
     }
-
 }

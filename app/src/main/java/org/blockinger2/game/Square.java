@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public class Square {
-
+public class Square
+{
     public static final int type_empty = 0;
     public static final int type_blue = 1;
     public static final int type_orange = 2;
@@ -26,12 +26,13 @@ public class Square {
     private int squaresize;
     private int phantomAlpha;
 
-    public Square(int type, Context c) {
+    public Square(int type, Context c)
+    {
         this.type = type;
         paint = new Paint();
         phantomAlpha = c.getResources().getInteger(R.integer.phantom_alpha);
         squaresize = 0;
-        switch(type){
+        switch (type) {
             case type_blue:
                 paint.setColor(c.getResources().getColor(R.color.square_blue));
                 break;
@@ -61,9 +62,11 @@ public class Square {
         }
     }
 
-    public void reDraw(int ss) {
-        if(type == type_empty)
+    public void reDraw(int ss)
+    {
+        if (type == type_empty) {
             return;
+        }
 
         squaresize = ss;
         bm = Bitmap.createBitmap(ss, ss, Bitmap.Config.ARGB_8888);
@@ -78,25 +81,28 @@ public class Square {
         //canv.draw
     }
 
-    public Square clone(Context c) {
+    public Square clone(Context c)
+    {
         return new Square(type, c);
     }
 
-    public boolean isEmpty() {
-        if(type == type_empty)
-            return true;
-        else
-            return false;
+    public boolean isEmpty()
+    {
+        return type == type_empty;
     }
 
-    public void draw(int x, int y, int squareSize, Canvas c, boolean isPhantom) { // top left corner of square
-        if(type == type_empty)
+    public void draw(int x, int y, int squareSize, Canvas c, boolean isPhantom)
+    {
+        // top left corner of square
+        if (type == type_empty) {
             return;
+        }
 
-        if(squareSize != squaresize)
+        if (squareSize != squaresize) {
             reDraw(squareSize);
+        }
 
-        if(isPhantom) {
+        if (isPhantom) {
             c.drawBitmap(phantomBM, x, y, null);
         } else {
             c.drawBitmap(bm, x, y, null);

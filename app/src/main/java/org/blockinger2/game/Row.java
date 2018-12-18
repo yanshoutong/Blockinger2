@@ -1,13 +1,13 @@
 package org.blockinger2.game;
 
-import org.blockinger2.game.components.Board;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class Row {
+import org.blockinger2.game.components.Board;
 
+public class Row
+{
     private Row below; // positive x direction
     private Row above; // negative x direction
     private Square[] elements;
@@ -16,69 +16,85 @@ public class Row {
     private Animator animator;
     private int fillStatus;
 
-    public Row(int width, Context c) {
+    public Row(int width, Context c)
+    {
         emptySquare = new Square(Square.type_empty, c);
-        animator = new Animator(c,this);
+        animator = new Animator(c, this);
         this.width = width;
         below = null;
         above = null;
         fillStatus = 0;
         elements = new Square[width];
-        for(int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) {
             elements[i] = emptySquare;
         }
     }
 
-    public void set(Square s, int i) {
-        if(s.isEmpty())
+    public void set(Square s, int i)
+    {
+        if (s.isEmpty()) {
             return;
-        if((i >= 0) && (i < width)) {
+        }
+        if ((i >= 0) && (i < width)) {
             fillStatus++;
             elements[i] = s;
         }
     }
 
-    public Square get(int i) {
-        if((i >= 0) && (i < width))
+    public Square get(int i)
+    {
+        if ((i >= 0) && (i < width)) {
             return elements[i];
+        }
         return null;
     }
 
-    public void set(Square[] squares) {
+    public void set(Square[] squares)
+    {
         elements = squares;
         fillStatus = 0;
 
-        if(elements!=null)
-            for(int i = 0; i < width; i++) {
-                if(elements[i]!=null)
-                    if(!elements[i].isEmpty())
+        if (elements != null) {
+            for (int i = 0; i < width; i++) {
+                if (elements[i] != null) {
+                    if (!elements[i].isEmpty()) {
                         fillStatus++;
+                    }
+                }
             }
+        }
     }
 
-    public void setAbove(Row row) {
+    public void setAbove(Row row)
+    {
         this.above = row;
     }
 
-    public void setBelow(Row row) {
+    public void setBelow(Row row)
+    {
         this.below = row;
     }
 
-    public Row below() {
+    public Row below()
+    {
         return this.below;
     }
 
-    public Row above() {
+    public Row above()
+    {
         return this.above;
     }
 
-    public Row delete() {
+    public Row delete()
+    {
         Row result = this.below;
 
-        if(above!=null)
+        if (above != null) {
             above.setBelow(below);
-        if(below!=null)
+        }
+        if (below != null) {
             below.setAbove(above);
+        }
 
         above = null;
         below = null;
@@ -86,39 +102,43 @@ public class Row {
         return result;
     }
 
-    public void draw(int x, int y, int squareSize, Canvas c) { // top left corner of Row
+    public void draw(int x, int y, int squareSize, Canvas c)
+    { // top left corner of Row
         animator.draw(x, y, squareSize, c);
     }
 
-    public Bitmap drawBitmap(int squareSize) { // top left corner of Row
-        Bitmap bm = Bitmap.createBitmap(width*squareSize, squareSize, Bitmap.Config.ARGB_8888);
+    public Bitmap drawBitmap(int squareSize)
+    { // top left corner of Row
+        Bitmap bm = Bitmap.createBitmap(width * squareSize, squareSize, Bitmap.Config.ARGB_8888);
         Canvas tamp = new Canvas(bm);
-        for(int i = 0; i < width; i++) {
-            if(elements[i] != null)
-                elements[i].draw(i*squareSize,0,squareSize,tamp,false);
+        for (int i = 0; i < width; i++) {
+            if (elements[i] != null) {
+                elements[i].draw(i * squareSize, 0, squareSize, tamp, false);
+            }
         }
         return bm;
     }
 
-    public boolean isFull() {
-        if(fillStatus >= width)
-            return true;
-        else
-            return false;
+    public boolean isFull()
+    {
+        return fillStatus >= width;
     }
 
-    public void cycle(long time, Board board) {
+    public void cycle(long time, Board board)
+    {
         animator.cycle(time, board);
     }
 
-    public void clear(Board board, int currentDropInterval) {
+    public void clear(Board board, int currentDropInterval)
+    {
         animator.start(board, currentDropInterval);
     }
 
-    public void finishClear(Board board) {
+    public void finishClear(Board board)
+    {
         // clear this Row
         fillStatus = 0;
-        for(int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) {
             elements[i] = emptySquare;
         }
 
@@ -137,7 +157,8 @@ public class Row {
         board.finishClear(this);
     }
 
-    public boolean interrupt(Board board) {
+    public boolean interrupt(Board board)
+    {
         return animator.finish(board);
     }
 }

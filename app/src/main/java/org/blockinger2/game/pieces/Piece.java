@@ -1,15 +1,15 @@
 package org.blockinger2.game.pieces;
 
-import org.blockinger2.game.R;
-import org.blockinger2.game.Square;
-import org.blockinger2.game.components.Board;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public abstract class Piece {
+import org.blockinger2.game.R;
+import org.blockinger2.game.Square;
+import org.blockinger2.game.components.Board;
 
+public abstract class Piece
+{
     public static final int type_J = 1; // blue
     public static final int type_L = 2; // orange
     public static final int type_O = 3; // yellow
@@ -34,10 +34,12 @@ public abstract class Piece {
 
     /**
      * Always call super(); first.
+     *
      * @param width
      * @param height
      */
-    protected Piece(Context c, int dimension) {
+    protected Piece(Context c, int dimension)
+    {
         this.dim = dimension;
         squareSize = 1;
         x = c.getResources().getInteger(R.integer.piece_start_x);
@@ -45,79 +47,92 @@ public abstract class Piece {
         active = false;
         isPhantom = false;
 
-        emptySquare =  new Square(Square.type_empty,c);
+        emptySquare = new Square(Square.type_empty, c);
 
         pattern = new Square[dim][dim]; // empty piece
         rotated = new Square[dim][dim];
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 pattern[i][j] = emptySquare;
                 rotated[i][j] = emptySquare;
             }
         }
     }
 
-    public void reset(Context c) {
+    public void reset(Context c)
+    {
         x = c.getResources().getInteger(R.integer.piece_start_x);
         y = 0;
         active = false;
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 pattern[i][j] = emptySquare;
             }
         }
     }
 
-    public void setActive(boolean b) {
+    public void setActive(boolean b)
+    {
         active = b;
         reDraw();
     }
 
-    public boolean isActive() {
+    public boolean isActive()
+    {
         return active;
     }
 
-    public void place(Board board) {
+    public void place(Board board)
+    {
         active = false;
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
-                if(pattern[i][j] != null)
-                    board.set(x+j,y+i,pattern[i][j]);
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (pattern[i][j] != null) {
+                    board.set(x + j, y + i, pattern[i][j]);
+                }
             }
         }
     }
 
     /**
-     *
      * @return true if movement was successfull.
      */
-    public boolean setPosition(int x_new, int y_new, boolean noInterrupt, Board board) {
+    public boolean setPosition(int x_new, int y_new, boolean noInterrupt, Board board)
+    {
         boolean collision = false;
         int leftOffset = 0;
         int rightOffset = 0;
         int bottomOffset = 0;
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
-                if(pattern[i][j] != null) {
-                    leftOffset = - (x_new+j);
-                    rightOffset = (x_new+j) - (board.getWidth() - 1);
-                    bottomOffset = (y_new+i) - (board.getHeight() - 1);
-                    if(!pattern[i][j].isEmpty() && (leftOffset > 0)) // left border violation
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (pattern[i][j] != null) {
+                    leftOffset = -(x_new + j);
+                    rightOffset = (x_new + j) - (board.getWidth() - 1);
+                    bottomOffset = (y_new + i) - (board.getHeight() - 1);
+                    if (!pattern[i][j].isEmpty() && (leftOffset > 0)) // left border violation
+                    {
                         return false;
-                    if(!pattern[i][j].isEmpty() && (rightOffset > 0)) // right border violation
+                    }
+                    if (!pattern[i][j].isEmpty() && (rightOffset > 0)) // right border violation
+                    {
                         return false;
-                    if(!pattern[i][j].isEmpty() && (bottomOffset > 0)) // bottom border violation
+                    }
+                    if (!pattern[i][j].isEmpty() && (bottomOffset > 0)) // bottom border violation
+                    {
                         return false;
-                    if(board.get(x_new+j,y_new+i) != null) {
-                        collision = (!pattern[i][j].isEmpty() && !board.get(x_new+j,y_new+i).isEmpty()); // collision
-                        if(collision) {
-                            if(noInterrupt)
+                    }
+                    if (board.get(x_new + j, y_new + i) != null) {
+                        collision = (!pattern[i][j].isEmpty() && !board.get(x_new + j, y_new + i).isEmpty()); // collision
+                        if (collision) {
+                            if (noInterrupt) {
                                 return false;
+                            }
                             // Try to avoid collision by interrupting all running clear animations.
                             board.interruptClearAnimation();
-                            collision = !board.get(x_new+j,y_new+i).isEmpty(); // Still not empty?
-                            if(collision)
+                            collision = !board.get(x_new + j, y_new + i).isEmpty(); // Still not empty?
+                            if (collision) {
                                 return false; // All hope is lost.
+                            }
                         }
                     }
                 }
@@ -139,129 +154,148 @@ public abstract class Piece {
     public abstract boolean turnRight(Board board);
 
     /**
-     *
      * @return true if movement to the left was successfull.
      */
-    public boolean moveLeft(Board board) {
-        if(!active)
+    public boolean moveLeft(Board board)
+    {
+        if (!active) {
             return true;
+        }
         return setPosition(x - 1, y, false, board);
     }
 
     /**
-     *
      * @return true if movement to the right was successfull.
      */
-    public boolean moveRight(Board board) {
-        if(!active)
+    public boolean moveRight(Board board)
+    {
+        if (!active) {
             return true;
+        }
         return setPosition(x + 1, y, false, board);
     }
 
     /**
-     *
      * @return true if drop was successfull. Otherwise the ground or other pieces was hit.
      */
-    public boolean drop(Board board) {
-        if(!active)
+    public boolean drop(Board board)
+    {
+        if (!active) {
             return true;
+        }
         return setPosition(x, y + 1, false, board);
     }
 
-    public int hardDrop(boolean noInterrupt, Board board) {
-        int i=0;
-        while(setPosition(x, y + 1, noInterrupt, board)){
-            if(i >= board.getHeight())
+    public int hardDrop(boolean noInterrupt, Board board)
+    {
+        int i = 0;
+        while (setPosition(x, y + 1, noInterrupt, board)) {
+            if (i >= board.getHeight()) {
                 throw new RuntimeException("Hard Drop Error: dropped too far.");
+            }
             i++;
         }
         return i;
     }
 
-    protected void reDraw() {
-
-        bm = Bitmap.createBitmap(squareSize*dim, squareSize*dim, Bitmap.Config.ARGB_8888);
+    protected void reDraw()
+    {
+        bm = Bitmap.createBitmap(squareSize * dim, squareSize * dim, Bitmap.Config.ARGB_8888);
         cv = new Canvas(bm);
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
-                if(pattern[i][j] == null) {} else
-                    if(!pattern[i][j].isEmpty())
-                        pattern[i][j].draw(j*squareSize, i*squareSize, squareSize, cv, false);
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (pattern[i][j] != null && !pattern[i][j].isEmpty()) {
+                    pattern[i][j].draw(j * squareSize, i * squareSize, squareSize, cv, false);
+                }
             }
         }
 
-        bmPhantom = Bitmap.createBitmap(squareSize*dim, squareSize*dim, Bitmap.Config.ARGB_8888);
+        bmPhantom = Bitmap.createBitmap(squareSize * dim, squareSize * dim, Bitmap.Config.ARGB_8888);
         cvPhantom = new Canvas(bmPhantom);
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
-                if(pattern[i][j] == null) {} else
-                    if(!pattern[i][j].isEmpty())
-                        pattern[i][j].draw(j*squareSize, i*squareSize, squareSize, cvPhantom, true);
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (pattern[i][j] != null && !pattern[i][j].isEmpty()) {
+                    pattern[i][j].draw(j * squareSize, i * squareSize, squareSize, cvPhantom, true);
+                }
+
             }
         }
     }
 
-    /** draw on actual position
+    /**
+     * draw on actual position
      *
-     * @param xOffset board x offset
-     * @param yOffset board y offset
+     * @param xOffset    board x offset
+     * @param yOffset    board y offset
      * @param squareSize
      * @param c
      * @param view
      */
-    public void drawOnBoard(int xOffset, int yOffset, int ss, Canvas c) {
-        if(!active)
+    public void drawOnBoard(int xOffset, int yOffset, int ss, Canvas c)
+    {
+        if (!active) {
             return;
-        if(ss != squareSize) {
+        }
+        if (ss != squareSize) {
             squareSize = ss;
             reDraw();
         }
-        if(isPhantom)
-            c.drawBitmap(bmPhantom, x*squareSize + xOffset, y*squareSize + yOffset, null);
-        else
-            c.drawBitmap(bm, x*squareSize + xOffset, y*squareSize + yOffset, null);
+        if (isPhantom) {
+            c.drawBitmap(bmPhantom, x * squareSize + xOffset, y * squareSize + yOffset, null);
+        } else {
+            c.drawBitmap(bm, x * squareSize + xOffset, y * squareSize + yOffset, null);
+        }
     }
 
     // draw on preview position
-    public void drawOnPreview(int xpos, int ypos, int ss, Canvas c) {
-        if(ss != squareSize) {
+    public void drawOnPreview(int xpos, int ypos, int ss, Canvas c)
+    {
+        if (ss != squareSize) {
             squareSize = ss;
             reDraw();
         }
         c.drawBitmap(bm, xpos, ypos, null);
     }
 
-    public int getDim() {
+    public int getDim()
+    {
         return dim;
     }
 
-    public void setPhantom(boolean b) {
+    public void setPhantom(boolean b)
+    {
         isPhantom = b;
     }
 
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
-    public int getY() {
+    public int getY()
+    {
         return y;
     }
 
-    public void setPositionSimple(int x_new, int y_new) {
+    public void setPositionSimple(int x_new, int y_new)
+    {
         x = x_new;
         y = y_new;
     }
 
-    public boolean setPositionSimpleCollision(int x_new, int y_new, Board board) {
-        for(int i = 0; i < dim; i++) {
-            for(int j = 0; j < dim; j++) {
-                if(pattern[i][j] != null) {
-                    if(board.get(x_new+j,y_new+i) == null) {
-                        if(!pattern[i][j].isEmpty())
+    public boolean setPositionSimpleCollision(int x_new, int y_new, Board board)
+    {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (pattern[i][j] != null) {
+                    if (board.get(x_new + j, y_new + i) == null) {
+                        if (!pattern[i][j].isEmpty()) {
                             return false;
+                        }
                     } else {
-                        if(!pattern[i][j].isEmpty() && !board.get(x_new+j,y_new+i).isEmpty())
+                        if (!pattern[i][j].isEmpty() && !board.get(x_new + j, y_new + i).isEmpty()) {
                             return false;
+                        }
                     }
 
                 }

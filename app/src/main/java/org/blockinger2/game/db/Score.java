@@ -1,45 +1,55 @@
 package org.blockinger2.game.db;
 
-public class Score {
+public class Score
+{
     private long id;
     private long score;
     private String playerName;
 
-    public Score() {
-
+    public Score()
+    {
+        //
     }
 
-      public long getId() {
+    public long getId()
+    {
         return id;
-      }
+    }
 
-      public void setId(long id) {
+    public void setId(long id)
+    {
         this.id = id;
-      }
+    }
 
-      public long getScore() {
+    public long getScore()
+    {
         return score;
-      }
+    }
 
-      public String getScoreString() {
+    public String getScoreString()
+    {
         return String.valueOf(score);
-      }
+    }
 
-      public void setScore(long comment) {
+    public void setScore(long comment)
+    {
         this.score = comment;
-      }
+    }
 
-      public String getName() {
+    public String getName()
+    {
         return playerName;
-      }
+    }
 
-      public void setName(String comment) {
+    public void setName(String comment)
+    {
         this.playerName = comment;
-      }
+    }
 
-      // Will be used by the ArrayAdapter in the ListView
-      @Override
-      public String toString() {
-        return  String.valueOf(score) + "@" + playerName;
-      }
+    // Will be used by the ArrayAdapter in the ListView
+    @Override
+    public String toString()
+    {
+        return String.valueOf(score) + "@" + playerName;
+    }
 }

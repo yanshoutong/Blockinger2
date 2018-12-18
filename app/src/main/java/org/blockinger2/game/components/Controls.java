@@ -1,18 +1,17 @@
 package org.blockinger2.game.components;
 
-import org.blockinger2.game.R;
-import org.blockinger2.game.activities.GameActivity;
-import org.blockinger2.game.pieces.*;
-
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 
-public class Controls extends Component {
+import org.blockinger2.game.R;
+import org.blockinger2.game.activities.GameActivity;
+import org.blockinger2.game.pieces.Piece;
 
+public class Controls extends Component
+{
     // Constants
 
     // Stuff
@@ -43,7 +42,8 @@ public class Controls extends Component {
     private Rect previewBox;
     private boolean boardTouched;
 
-    public Controls(GameActivity ga) {
+    public Controls(GameActivity ga)
+    {
         super(ga);
 
         lineThresholds = host.getResources().getIntArray(R.array.line_thresholds);
@@ -55,17 +55,19 @@ public class Controls extends Component {
         eventVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_vibration_events", false);
         try {
             vibrationOffset = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(host).getString("pref_vibDurOffset", "0"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             vibrationOffset = 0;
         }
-        if(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_accelerationH", true))
+        if (PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_accelerationH", true)) {
             initialHIntervalFactor = 2;
-        else
+        } else {
             initialHIntervalFactor = 1;
-        if(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_accelerationV", true))
+        }
+        if (PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_accelerationV", true)) {
             initialVIntervalFactor = 2;
-        else
+        } else {
             initialVIntervalFactor = 1;
+        }
         playerSoftDrop = false;
         leftMove = false;
         rightMove = false;
@@ -81,46 +83,60 @@ public class Controls extends Component {
         boardTouched = false;
     }
 
-    public void vibrateWall() {
-        if (v == null)
+    public void vibrateWall()
+    {
+        if (v == null) {
             return;
-        if (!eventVibrationEnabled)
+        }
+        if (!eventVibrationEnabled) {
             return;
-        if(((AudioManager)host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT)
+        }
+        if (((AudioManager) host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
             return;
+        }
         v.vibrate(host.game.getMoveInterval() + vibrationOffset);
     }
 
-    public void cancelVibration() {
+    public void cancelVibration()
+    {
         v.cancel();
     }
 
-    public void vibrateBottom() {
-        if (v == null)
+    public void vibrateBottom()
+    {
+        if (v == null) {
             return;
-        if (!eventVibrationEnabled)
+        }
+        if (!eventVibrationEnabled) {
             return;
-        if(((AudioManager)host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT)
+        }
+        if (((AudioManager) host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
             return;
+        }
         v.cancel();
-        v.vibrate(new long[] {0, 5 + vibrationOffset, 30 + vibrationOffset, 20 + vibrationOffset}, -1);
+        v.vibrate(new long[]{0, 5 + vibrationOffset, 30 + vibrationOffset, 20 + vibrationOffset}, -1);
     }
 
-    public void vibrateShort() {
-        if (v == null)
+    public void vibrateShort()
+    {
+        if (v == null) {
             return;
-        if (!buttonVibrationEnabled)
+        }
+        if (!buttonVibrationEnabled) {
             return;
-        if(((AudioManager)host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT)
+        }
+        if (((AudioManager) host.getSystemService(Context.AUDIO_SERVICE)).getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
             return;
-        if((host.game.getTime() - shortVibeTime) > (host.getResources().getInteger(R.integer.shortVibeInterval) + vibrationOffset)) {
+        }
+        if ((host.game.getTime() - shortVibeTime) > (host.getResources().getInteger(R.integer.shortVibeInterval) + vibrationOffset)) {
             shortVibeTime = host.game.getTime();
             v.vibrate(vibrationOffset);
         }
     }
 
 
-    public void rotateLeftPressed() {
+    public void rotateLeftPressed()
+    {
         leftRotation = true;
         host.game.action();
         vibrateShort();
@@ -128,11 +144,13 @@ public class Controls extends Component {
         //Thread.yield();
     }
 
-    public void rotateLeftReleased() {
+    public void rotateLeftReleased()
+    {
         //Thread.yield();
     }
 
-    public void rotateRightPressed() {
+    public void rotateRightPressed()
+    {
         rightRotation = true;
         host.game.action();
         vibrateShort();
@@ -140,17 +158,20 @@ public class Controls extends Component {
         //Thread.yield();
     }
 
-    public void rotateRightReleased() {
+    public void rotateRightReleased()
+    {
         //Thread.yield();
     }
 
-    public void downButtonReleased() {
+    public void downButtonReleased()
+    {
         clearPlayerSoftDrop = true;
         vibrateShort();
         //Thread.yield();
     }
 
-    public void downButtonPressed() {
+    public void downButtonPressed()
+    {
         host.game.action();
         playerSoftDrop = true;
         clearPlayerSoftDrop = false;
@@ -159,25 +180,31 @@ public class Controls extends Component {
         host.sound.buttonSound();
     }
 
-    public void dropButtonReleased() {
-
+    public void dropButtonReleased()
+    {
+        //
     }
 
-    public void dropButtonPressed() {
-        if(!host.game.getActivePiece().isActive())
+    public void dropButtonPressed()
+    {
+        if (!host.game.getActivePiece().isActive()) {
             return;
+        }
         host.game.action();
         playerHardDrop = true;
-        if(buttonVibrationEnabled & !eventVibrationEnabled)
+        if (buttonVibrationEnabled & !eventVibrationEnabled) {
             vibrateShort();
+        }
     }
 
-    public void leftButtonReleased() {
+    public void leftButtonReleased()
+    {
         clearLeftMove = true;
         cancelVibration();
     }
 
-    public void leftButtonPressed() {
+    public void leftButtonPressed()
+    {
         host.game.action();
         clearLeftMove = false;
         leftMove = true;
@@ -186,12 +213,14 @@ public class Controls extends Component {
         host.sound.buttonSound();
     }
 
-    public void rightButtonReleased() {
+    public void rightButtonReleased()
+    {
         clearRightMove = true;
         cancelVibration();
     }
 
-    public void rightButtonPressed() {
+    public void rightButtonPressed()
+    {
         host.game.action();
         clearRightMove = false;
         rightMove = true;
@@ -200,47 +229,48 @@ public class Controls extends Component {
         host.sound.buttonSound();
     }
 
-    public void cycle(long tempTime) {
+    public void cycle(long tempTime)
+    {
         long gameTime = host.game.getTime();
         Piece active = host.game.getActivePiece();
         Board board = host.game.getBoard();
         int maxLevel = host.game.getMaxLevel();
 
-
         // Left Rotation
-        if(leftRotation) {
+        if (leftRotation) {
             leftRotation = false;
             active.turnLeft(board);
             host.display.invalidatePhantom();
         }
 
         // Right Rotation
-        if(rightRotation) {
+        if (rightRotation) {
             rightRotation = false;
             active.turnRight(board);
             host.display.invalidatePhantom();
         }
 
         // Reset Move Time
-        if((!leftMove && !rightMove) && (!continuousLeftMove && !continuousRightMove))
+        if ((!leftMove && !rightMove) && (!continuousLeftMove && !continuousRightMove)) {
             host.game.setNextPlayerMoveTime(gameTime);
+        }
 
         // Left Move
-        if(leftMove) {
+        if (leftMove) {
             continuousLeftMove = true;
             leftMove = false;
-            if(active.moveLeft(board)) { // successful move
+            if (active.moveLeft(board)) { // successful move
                 vibrateShort(); // ES SOLL BEI JEDEM TICK VIBRIEREN
                 host.display.invalidatePhantom();
-                host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + initialHIntervalFactor*host.game.getMoveInterval());
+                host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + initialHIntervalFactor * host.game.getMoveInterval());
             } else { // failed move
                 vibrateWall();
                 host.game.setNextPlayerMoveTime(gameTime);
             }
 
-        } else if(continuousLeftMove) {
-            if(gameTime >= host.game.getNextPlayerMoveTime()) {
-                if(active.moveLeft(board)) { // successful move
+        } else if (continuousLeftMove) {
+            if (gameTime >= host.game.getNextPlayerMoveTime()) {
+                if (active.moveLeft(board)) { // successful move
                     vibrateShort(); // ES SOLL BEI JEDEM TICK VIBRIEREN
                     host.display.invalidatePhantom();
                     host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + host.game.getMoveInterval());
@@ -250,28 +280,28 @@ public class Controls extends Component {
                 }
             }
 
-            if(clearLeftMove) {
+            if (clearLeftMove) {
                 continuousLeftMove = false;
                 clearLeftMove = false;
             }
         }
 
         // Right Move
-        if(rightMove) {
+        if (rightMove) {
             continuousRightMove = true;
             rightMove = false;
-            if(active.moveRight(board)) { // successful move
+            if (active.moveRight(board)) { // successful move
                 vibrateShort(); // ES SOLL BEI JEDEM TICK VIBRIEREN
                 host.display.invalidatePhantom();
-                host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + initialHIntervalFactor*host.game.getMoveInterval());
+                host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + initialHIntervalFactor * host.game.getMoveInterval());
             } else { // failed move
                 vibrateWall();
                 host.game.setNextPlayerMoveTime(gameTime); // first interval is doubled!
             }
 
-        } else if(continuousRightMove) {
-            if(gameTime >= host.game.getNextPlayerMoveTime()) {
-                if(active.moveRight(board)) { // successful move
+        } else if (continuousRightMove) {
+            if (gameTime >= host.game.getNextPlayerMoveTime()) {
+                if (active.moveRight(board)) { // successful move
                     vibrateShort(); // ES SOLL BEI JEDEM TICK VIBRIEREN
                     host.display.invalidatePhantom();
                     host.game.setNextPlayerMoveTime(host.game.getNextPlayerMoveTime() + host.game.getMoveInterval());
@@ -281,15 +311,14 @@ public class Controls extends Component {
                 }
             }
 
-            if(clearRightMove) {
+            if (clearRightMove) {
                 continuousRightMove = false;
                 clearRightMove = false;
             }
         }
 
-
         // Hard Drop
-        if(playerHardDrop) {
+        if (playerHardDrop) {
             board.interruptClearAnimation();
             int hardDropDistance = active.hardDrop(false, board);
             vibrateBottom();
@@ -298,16 +327,17 @@ public class Controls extends Component {
             board.invalidate();
             playerHardDrop = false;
 
-            if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
+            if ((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(), maxLevel - 1)])) {
                 host.game.nextLevel();
+            }
             host.game.setNextDropTime(gameTime + host.game.getAutoDropInterval());
             host.game.setNextPlayerDropTime(gameTime);
 
-        // Initial Soft Drop
-        } else if(playerSoftDrop) {
+            // Initial Soft Drop
+        } else if (playerSoftDrop) {
             playerSoftDrop = false;
             continuousSoftDrop = true;
-            if(!active.drop(board)) {
+            if (!active.drop(board)) {
                 // piece finished
                 vibrateBottom();
                 host.game.clearLines(false, 0);
@@ -316,15 +346,16 @@ public class Controls extends Component {
             } else {
                 host.game.incSoftDropCounter();
             }
-            if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
+            if ((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(), maxLevel - 1)])) {
                 host.game.nextLevel();
+            }
             host.game.setNextDropTime(host.game.getNextPlayerDropTime() + host.game.getAutoDropInterval());
-            host.game.setNextPlayerDropTime(host.game.getNextPlayerDropTime() + initialVIntervalFactor*host.game.getSoftDropInterval());
+            host.game.setNextPlayerDropTime(host.game.getNextPlayerDropTime() + initialVIntervalFactor * host.game.getSoftDropInterval());
 
-        // Continuous Soft Drop
-        } else if(continuousSoftDrop) {
-            if(gameTime >= host.game.getNextPlayerDropTime()) {
-                if(!active.drop(board)) {
+            // Continuous Soft Drop
+        } else if (continuousSoftDrop) {
+            if (gameTime >= host.game.getNextPlayerDropTime()) {
+                if (!active.drop(board)) {
                     // piece finished
                     vibrateBottom();
                     host.game.clearLines(false, 0);
@@ -333,55 +364,61 @@ public class Controls extends Component {
                 } else {
                     host.game.incSoftDropCounter();
                 }
-                if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
+                if ((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(), maxLevel - 1)])) {
                     host.game.nextLevel();
+                }
                 host.game.setNextDropTime(host.game.getNextPlayerDropTime() + host.game.getAutoDropInterval());
                 host.game.setNextPlayerDropTime(host.game.getNextPlayerDropTime() + host.game.getSoftDropInterval());
 
-            // Autodrop if faster than playerDrop
-            } else if(gameTime >= host.game.getNextDropTime()) {
-                if(!active.drop(board)) {
+                // Autodrop if faster than playerDrop
+            } else if (gameTime >= host.game.getNextDropTime()) {
+                if (!active.drop(board)) {
                     // piece finished
                     vibrateBottom();
                     host.game.clearLines(false, 0);
                     host.game.pieceTransition(eventVibrationEnabled);
                     board.invalidate();
                 }
-                if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
+                if ((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(), maxLevel - 1)])) {
                     host.game.nextLevel();
+                }
                 host.game.setNextDropTime(host.game.getNextDropTime() + host.game.getAutoDropInterval());
                 host.game.setNextPlayerDropTime(host.game.getNextDropTime() + host.game.getSoftDropInterval());
             }
 
             /* Cancel continuous SoftDrop */
-            if(clearPlayerSoftDrop) {
+            if (clearPlayerSoftDrop) {
                 continuousSoftDrop = false;
                 clearPlayerSoftDrop = false;
             }
 
-        // Autodrop if no playerDrop
-        } else if(gameTime >= host.game.getNextDropTime()) {
-            if(!active.drop(board)) {
+            // Autodrop if no playerDrop
+        } else if (gameTime >= host.game.getNextDropTime()) {
+            if (!active.drop(board)) {
                 // piece finished
                 vibrateBottom();
                 host.game.clearLines(false, 0);
                 host.game.pieceTransition(eventVibrationEnabled);
                 board.invalidate();
             }
-            if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
+            if ((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(), maxLevel - 1)])) {
                 host.game.nextLevel();
+            }
             host.game.setNextDropTime(host.game.getNextDropTime() + host.game.getAutoDropInterval());
             host.game.setNextPlayerDropTime(host.game.getNextDropTime());
 
-        } else
+        } else {
             host.game.setNextPlayerDropTime(gameTime);
+        }
     }
 
-    public void setBoard(Board instance2) {
+    public void setBoard(Board instance2)
+    {
         this.board = instance2;
     }
 
-    public Board getBoard() {
+    public Board getBoard()
+    {
         return this.board;
     }
 
@@ -389,7 +426,8 @@ public class Controls extends Component {
      * unused!
      */
     @Override
-    public void reconnect(GameActivity cont) {
+    public void reconnect(GameActivity cont)
+    {
         super.reconnect(cont);
         v = (Vibrator) cont.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -397,7 +435,7 @@ public class Controls extends Component {
         eventVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(cont).getBoolean("pref_vibration_events", false);
         try {
             vibrationOffset = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(cont).getString("pref_vibDurOffset", "0"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             vibrationOffset = 0;
         }
     }
@@ -406,31 +444,37 @@ public class Controls extends Component {
      * unused!
      */
     @Override
-    public void disconnect() {
+    public void disconnect()
+    {
         super.disconnect();
         v = null;
     }
 
-    public void boardPressed(float x, float y) {
-        if(previewBox == null)
+    public void boardPressed(float x, float y)
+    {
+        if (previewBox == null) {
             return;
+        }
 
         boardTouched = true;
 
-        if(previewBox.contains((int)x, (int)y))
+        if (previewBox.contains((int) x, (int) y)) {
             host.game.hold();
+        }
     }
 
-    public void boardReleased() {
+    public void boardReleased()
+    {
         boardTouched = false;
     }
 
-    public void setPreviewRect(Rect rect) {
+    public void setPreviewRect(Rect rect)
+    {
         previewBox = rect;
     }
 
-    public boolean isBoardTouched() {
+    public boolean isBoardTouched()
+    {
         return boardTouched;
     }
-
 }

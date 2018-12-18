@@ -1,16 +1,15 @@
 package org.blockinger2.game.components;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+
 import org.blockinger2.game.R;
 import org.blockinger2.game.Row;
 import org.blockinger2.game.Square;
 import org.blockinger2.game.activities.GameActivity;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-
-
-public class Board extends Component {
-
+public class Board extends Component
+{
     private int height;
     private int width;
     private Row topRow; // index 0
@@ -22,19 +21,20 @@ public class Board extends Component {
     private Bitmap blockMap;
     private Canvas blockVas;
 
-    public Board(GameActivity ga) {
+    public Board(GameActivity ga)
+    {
         super(ga);
         width = host.getResources().getInteger(R.integer.spalten);
         height = host.getResources().getInteger(R.integer.zeilen);
         valid = false;
 
         /* Init Board */
-        topRow = new Row(width,host);
+        topRow = new Row(width, host);
         currentIndex = 0;
         tempRow = topRow;
         currentRow = topRow;
-        for(int i = 1; i < height; i++) {
-            currentRow = new Row(width,host);
+        for (int i = 1; i < height; i++) {
+            currentRow = new Row(width, host);
             currentIndex = i;
             currentRow.setAbove(tempRow);
             tempRow.setBelow(currentRow);
@@ -44,11 +44,14 @@ public class Board extends Component {
         currentRow.setBelow(topRow);
     }
 
-    public void draw(int x, int y, int squareSize, Canvas c){ // top left corner of game board
-        if(topRow == null)
+    public void draw(int x, int y, int squareSize, Canvas c)
+    {
+        // top left corner of game board
+        if (topRow == null) {
             throw new RuntimeException("BlockBoard was not initialized!");
+        }
 
-        if(valid) {
+        if (valid) {
             c.drawBitmap(blockMap, x, y, null);
             return;
         }
@@ -58,13 +61,13 @@ public class Board extends Component {
          * Crash.
          */
         try {
-            blockMap = Bitmap.createBitmap(width*squareSize, height*squareSize, Bitmap.Config.ARGB_8888);
-        } catch(Exception e) {
+            blockMap = Bitmap.createBitmap(width * squareSize, height * squareSize, Bitmap.Config.ARGB_8888);
+        } catch (Exception e) {
             valid = false;
             tempRow = topRow;
-            for(int i = 0; i < height; i++) {
-                if(tempRow != null) {
-                    c.drawBitmap(tempRow.drawBitmap(squareSize), x, y+i*squareSize, null);
+            for (int i = 0; i < height; i++) {
+                if (tempRow != null) {
+                    c.drawBitmap(tempRow.drawBitmap(squareSize), x, y + i * squareSize, null);
                     tempRow = tempRow.below();
                 }
             }
@@ -74,46 +77,53 @@ public class Board extends Component {
         blockVas = new Canvas(blockMap);
         valid = true;
         tempRow = topRow;
-        for(int i = 0; i < height; i++) {
-            if(tempRow != null) {
-                tempRow.draw(0,0+i*squareSize,squareSize,blockVas);
+        for (int i = 0; i < height; i++) {
+            if (tempRow != null) {
+                tempRow.draw(0, 0 + i * squareSize, squareSize, blockVas);
                 tempRow = tempRow.below();
             }
         }
         c.drawBitmap(blockMap, x, y, null);
     }
 
-    public int getWidth() {
+    public int getWidth()
+    {
         return width;
     }
 
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
     }
 
-    public Square get(int x, int y) {
-        if(x < 0)
+    public Square get(int x, int y)
+    {
+        if (x < 0) {
             return null;
-        if(x > (width - 1))
+        }
+        if (x > (width - 1)) {
             return null;
-        if(y < 0)
+        }
+        if (y < 0) {
             return null;
-        if(y > (height - 1))
+        }
+        if (y > (height - 1)) {
             return null;
-        if(currentIndex == y){
+        }
+        if (currentIndex == y) {
             return currentRow.get(x);
-        } else if(currentIndex < y) {
-            if(currentRow.below() == null)
+        } else if (currentIndex < y) {
+            if (currentRow.below() == null) {
                 return null;
-            else {
+            } else {
                 currentRow = currentRow.below();
                 currentIndex++;
                 return get(x, y);
             }
         } else {
-            if(currentRow.above() == null)
+            if (currentRow.above() == null) {
                 return null;
-            else {
+            } else {
                 currentRow = currentRow.above();
                 currentIndex--;
                 return get(x, y);
@@ -121,25 +131,32 @@ public class Board extends Component {
         }
     }
 
-    public void set(int x, int y, Square square) {
-        if(x < 0)
+    public void set(int x, int y, Square square)
+    {
+        if (x < 0) {
             return;
-        if(x > (width - 1))
+        }
+        if (x > (width - 1)) {
             return;
-        if(y < 0)
+        }
+        if (y < 0) {
             return;
-        if(y > (height - 1))
+        }
+        if (y > (height - 1)) {
             return;
-        if(square == null)
+        }
+        if (square == null) {
             return;
-        if(square.isEmpty())
+        }
+        if (square.isEmpty()) {
             return;
+        }
 
         valid = false;
 
-        if(currentIndex == y)
-            currentRow.set(square,x);
-        else if(currentIndex < y) {
+        if (currentIndex == y) {
+            currentRow.set(square, x);
+        } else if (currentIndex < y) {
             currentRow = currentRow.below();
             currentIndex++;
             set(x, y, square);
@@ -150,26 +167,30 @@ public class Board extends Component {
         }
     }
 
-    public void cycle(long time) {
+    public void cycle(long time)
+    {
         // begin at bottom line
-        if(topRow == null)
+        if (topRow == null) {
             throw new RuntimeException("BlockBoard was not initialized!");
+        }
 
         tempRow = topRow.above();
-        for(int i = 0; i < height; i++) {
+        for (int i = 0; i < height; i++) {
             tempRow.cycle(time, this);
             tempRow = tempRow.above();
-            if(tempRow == null)
+            if (tempRow == null) {
                 return;
+            }
         }
     }
 
-    public int clearLines(int dim) {
+    public int clearLines(int dim)
+    {
         valid = false;
         Row clearPointer = currentRow;
         int clearCounter = 0;
-        for(int i = 0; i < dim; i++) {
-            if(clearPointer.isFull()) {
+        for (int i = 0; i < dim; i++) {
+            if (clearPointer.isFull()) {
                 clearCounter++;
                 clearPointer.clear(this, host.game.getAutoDropInterval());
             }
@@ -180,58 +201,69 @@ public class Board extends Component {
         return clearCounter;
     }
 
-    public Row getTopRow() {
+    public Row getTopRow()
+    {
         return topRow;
     }
 
-    public void finishClear(Row row) {
+    public void finishClear(Row row)
+    {
         valid = false;
         topRow = row;
         currentIndex++;
         host.display.invalidatePhantom();
     }
 
-    public void interruptClearAnimation() {
+    public void interruptClearAnimation()
+    {
         // begin at bottom line
-        if(topRow == null)
+        if (topRow == null) {
             throw new RuntimeException("BlockBoard was not initialized!");
+        }
 
         Row interator = topRow.above();
-        for(int i = 0; i < height; i++) {
-            if(interator.interrupt(this)) {
+        for (int i = 0; i < height; i++) {
+            if (interator.interrupt(this)) {
                 interator = topRow.above();
                 i = 0;
                 valid = false;
-            } else
+            } else {
                 interator = interator.above();
-            if(interator == null)
+            }
+            if (interator == null) {
                 return;
+            }
         }
         host.display.invalidatePhantom();
     }
 
-    public void invalidate() {
+    public void invalidate()
+    {
         valid = false;
     }
 
-    public void popupScore(long addScore) {
+    public void popupScore(long addScore)
+    {
         //TODO
     }
 
-    public int getCurrentRowIndex() {
+    public int getCurrentRowIndex()
+    {
         return currentIndex;
     }
 
-    public Row getCurrentRow() {
+    public Row getCurrentRow()
+    {
         return currentRow;
     }
 
-    public void setCurrentRowIndex(int index) {
+    public void setCurrentRowIndex(int index)
+    {
         currentIndex = index;
     }
 
-    public void setCurrentRow(Row row) {
+    public void setCurrentRow(Row row)
+    {
         currentRow = row;
     }
-
 }
