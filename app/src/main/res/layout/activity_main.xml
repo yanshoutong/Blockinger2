@@ -1,22 +1,22 @@
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="right"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="activities.MainActivity">
 
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.8"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView1"
@@ -43,8 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:contentDescription="@string/highscoreListDescription" >
-        </ListView>
+            android:contentDescription="@string/highscoreListDescription" />
 
         <View
             android:id="@+id/hdivider"
@@ -60,8 +59,7 @@
             android:hint="@string/playerNameInputFieldHint"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
-            android:singleLine="true" >
-        </EditText>
+            android:singleLine="true" />
 
     </LinearLayout>
 
@@ -73,7 +71,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" >
+        android:gravity="center">
 
         <Button
             android:id="@+id/resumeButton"
@@ -85,8 +83,8 @@
             android:enabled="false"
             android:onClick="onClickResume"
             android:text="@string/resumeButtonString"
-            android:textColor="@color/holo_grey"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/holo_grey"
             android:textColorHint="@color/holo_grey" />
 
         <View
@@ -103,8 +101,8 @@
             android:layout_weight="1"
             android:onClick="onClickStart"
             android:text="@string/startButtonString"
-            android:textColor="@color/square_error"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/square_error"
             android:textColorHint="@color/holo_grey" />
 
     </LinearLayout>

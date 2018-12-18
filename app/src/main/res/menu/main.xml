@@ -1,35 +1,37 @@
- <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="1"
-        android:showAsAction="ifRoom|withText"
+        android:enabled="true"
         android:icon="@drawable/ic_settings"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
-        android:enabled="true"/>
+        app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_about"
+        android:enabled="true"
         android:orderInCategory="2"
-        android:showAsAction="never"
         android:title="@string/action_about"
-        android:enabled="true"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_donate"
+        android:enabled="true"
         android:orderInCategory="3"
-        android:showAsAction="never"
         android:title="@string/action_donate"
-        android:enabled="true"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_help"
+        android:enabled="true"
         android:orderInCategory="4"
-        android:showAsAction="never"
         android:title="@string/action_help"
-        android:enabled="true"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_exit"
+        android:enabled="true"
         android:orderInCategory="5"
-        android:showAsAction="never"
         android:title="@string/quitButtonString"
-        android:enabled="true"/>
+        app:showAsAction="never" />
 
 </menu>

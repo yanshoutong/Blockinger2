@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".GameActivity" >
-
-
+    tools:context="activities.GameActivity">
 
     <org.blockinger2.game.BlockBoardView
         android:id="@+id/boardView"
@@ -20,21 +18,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6" >
+        android:layout_weight="0.6">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2.4"
                 android:gravity="center"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/leftButton"
@@ -45,6 +43,7 @@
                     android:adjustViewBounds="false"
                     android:clickable="true"
                     android:contentDescription="left move Button"
+                    android:focusable="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/left_button_icon_noburn" />
 
@@ -62,6 +61,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:contentDescription="right Move Button"
+                    android:focusable="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/right_button_icon_noburn" />
             </LinearLayout>
@@ -73,15 +73,16 @@
                 android:layout_weight="0.1" />
 
             <ImageButton
-                android:id="@+id/softDropButton"
+                android:id="@+id/hardDropButton"
                 style="@android:style/Widget.ImageWell"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:contentDescription="soft Drop Button"
+                android:contentDescription="Hard Drop Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/soft_drop_button_icon_noburn" />
+                android:src="@drawable/hard_drop_button_icon_noburn" />
         </LinearLayout>
 
         <View
@@ -94,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.1"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/pausebutton_1"
@@ -103,8 +104,8 @@
                 android:layout_height="48dp"
                 android:layout_weight="0"
                 android:text="@string/pausebutton"
-                android:textColor="@color/square_error"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/square_error"
                 android:textColorHint="@color/holo_grey" />
 
             <View
@@ -126,12 +127,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2.4" >
+                android:layout_weight="2.4">
 
                 <ImageButton
                     android:id="@+id/rotateLeftButton"
@@ -141,6 +142,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:contentDescription="rotate left Button"
+                    android:focusable="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/rotate_left_button_icon_noburn" />
 
@@ -158,6 +160,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:contentDescription="rotate right Button"
+                    android:focusable="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/rotate_right_button_icon_noburn" />
 
@@ -170,15 +173,16 @@
                 android:layout_weight="0.1" />
 
             <ImageButton
-                android:id="@+id/hardDropButton"
+                android:id="@+id/softDropButton"
                 style="@android:style/Widget.ImageWell"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:contentDescription="Hard Drop Button"
+                android:contentDescription="soft Drop Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/hard_drop_button_icon_noburn" />
+                android:src="@drawable/soft_drop_button_icon_noburn" />
 
         </LinearLayout>
 

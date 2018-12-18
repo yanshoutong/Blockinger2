@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal"
-    tools:context=".GameActivity" >
+    tools:context="activities.GameActivity">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:id="@+id/View05"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2.8"
-            android:gravity="center" >
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/leftButton"
@@ -36,6 +36,7 @@
                 android:adjustViewBounds="false"
                 android:clickable="true"
                 android:contentDescription="left move Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/left_button_icon_noburn" />
 
@@ -53,6 +54,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:contentDescription="right Move Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/right_button_icon_noburn" />
         </LinearLayout>
@@ -71,6 +73,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="Hard Drop Button"
+            android:focusable="true"
             android:scaleType="centerInside"
             android:src="@drawable/hard_drop_button_icon_noburn" />
 
@@ -100,7 +103,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:id="@+id/View06"
@@ -111,7 +114,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.8" >
+            android:layout_weight="2.8">
 
             <ImageButton
                 android:id="@+id/rotateLeftButton"
@@ -121,6 +124,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:contentDescription="rotate left Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/rotate_left_button_icon_noburn" />
 
@@ -138,6 +142,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:contentDescription="rotate right Button"
+                android:focusable="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/rotate_right_button_icon_noburn" />
 
@@ -157,6 +162,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="soft Drop Button"
+            android:focusable="true"
             android:scaleType="centerInside"
             android:src="@drawable/soft_drop_button_icon_noburn" />
 
@@ -173,8 +179,8 @@
             android:layout_height="48dp"
             android:layout_weight="0"
             android:text="@string/pausebutton"
-            android:textColor="@color/square_error"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/square_error"
             android:textColorHint="@color/holo_grey" />
 
     </LinearLayout>

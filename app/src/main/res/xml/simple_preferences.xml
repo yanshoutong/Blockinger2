@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:robobunny="http://robobunny.com">
+    xmlns:robobunny="http://robobunny.com">
 
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="pref_phantom"
         android:summary="@string/pref_phantom_summary"
-        android:defaultValue="true"
-        android:title="@string/pref_phantom_title"/>
+        android:title="@string/pref_phantom_title" />
 
     <CheckBoxPreference
+        android:defaultValue="true"
         android:key="pref_popup"
         android:summary="@string/pref_popup_summary"
-        android:defaultValue="true"
-        android:title="@string/pref_popup_title"/>
+        android:title="@string/pref_popup_title" />
 
     <PreferenceCategory
-        android:title="@string/pref_category_sound"
-        android:key="sound_settings">
+        android:key="sound_settings"
+        android:title="@string/pref_category_sound">
 
         <org.blockinger2.game.SeekBarPreference
-            android:key="pref_soundvolume"
-            android:title="@string/soundvolume_pref_title"
             android:defaultValue="40"
+            android:key="pref_soundvolume"
             android:max="100"
+            android:title="@string/soundvolume_pref_title"
             robobunny:min="0"
             robobunny:unitsLeft=""
             robobunny:unitsRight=" %" />
 
         <CheckBoxPreference
-            android:key="pref_button_sound"
             android:defaultValue="false"
-            android:title="@string/pref_button_sound_title"/>
+            android:key="pref_button_sound"
+            android:title="@string/pref_button_sound_title" />
 
         <org.blockinger2.game.SeekBarPreference
-            android:key="pref_musicvolume"
-            android:title="@string/musicvolume_pref_title"
             android:defaultValue="30"
+            android:key="pref_musicvolume"
             android:max="100"
+            android:title="@string/musicvolume_pref_title"
             robobunny:min="0"
             robobunny:unitsLeft=""
             robobunny:unitsRight=" %" />
@@ -44,44 +44,42 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/pref_category_vibration"
-        android:key="vibration_settings">
+        android:key="vibration_settings"
+        android:title="@string/pref_category_vibration">
 
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pref_vibration_button"
             android:summary="@string/pref_vibration_button_summary"
-            android:defaultValue="false"
-            android:title="@string/pref_vibration_button_title"/>
+            android:title="@string/pref_vibration_button_title" />
 
         <EditTextPreference
+            android:defaultValue="@string/pref_vibDurOffset_default"
             android:dialogMessage="@string/pref_vibDurOffset_summary"
-            android:positiveButtonText="OK"
-            android:negativeButtonText="Cancel"
-            android:key="pref_vibDurOffset"
-            android:numeric="integer"
-            android:title="@string/pref_vibDurOffset_title"
             android:dialogTitle="@string/pref_vibDurOffset_title"
-            android:defaultValue="@string/pref_vibDurOffset_default" />
+            android:key="pref_vibDurOffset"
+            android:negativeButtonText="Cancel"
+            android:numeric="integer"
+            android:positiveButtonText="OK"
+            android:title="@string/pref_vibDurOffset_title" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_vibration_events"
             android:summary="@string/pref_vibration_events_summary"
-            android:defaultValue="true"
-            android:title="@string/pref_vibration_events_title"/>
+            android:title="@string/pref_vibration_events_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/pref_category_other"
-        android:key="other_settings">
-
+        android:key="other_settings"
+        android:title="@string/pref_category_other">
 
         <Preference
-            android:title="@string/pref_category_advanced"
+            android:icon="@drawable/ic_settings"
             android:key="pref_advanced"
-            android:icon="@drawable/ic_settings">
-
-        </Preference>
+            android:title="@string/pref_category_advanced" />
 
     </PreferenceCategory>
+
 </PreferenceScreen>
