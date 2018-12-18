@@ -7,13 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.Window;
 
-import org.blockinger2.game.BlockBoardView;
+import org.blockinger2.game.views.BlockBoardView;
 import org.blockinger2.game.R;
-import org.blockinger2.game.WorkThread;
+import org.blockinger2.game.engine.WorkThread;
 import org.blockinger2.game.components.Controls;
 import org.blockinger2.game.components.Display;
 import org.blockinger2.game.components.GameState;
-import org.blockinger2.game.components.Sound;
+import org.blockinger2.game.engine.Sound;
+import org.blockinger2.game.fragments.DefeatDialogFragment;
 
 public class GameActivity extends FragmentActivity
 {

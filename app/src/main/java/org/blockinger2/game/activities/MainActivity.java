@@ -18,9 +18,9 @@ import android.widget.TextView;
 
 import org.blockinger2.game.R;
 import org.blockinger2.game.components.GameState;
-import org.blockinger2.game.components.Sound;
-import org.blockinger2.game.db.HighscoreOpenHelper;
-import org.blockinger2.game.db.ScoreDataSource;
+import org.blockinger2.game.engine.Sound;
+import org.blockinger2.game.database.HighscoreOpenHelper;
+import org.blockinger2.game.database.ScoreDataSource;
 
 public class MainActivity extends ListActivity
 {

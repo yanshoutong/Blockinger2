@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import org.blockinger2.game.R;
-import org.blockinger2.game.Square;
+import org.blockinger2.game.engine.Square;
 import org.blockinger2.game.components.Board;
 
 public abstract class Piece

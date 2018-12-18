@@ -1,4 +1,4 @@
-package org.blockinger2.game;
+package org.blockinger2.game.views;
 
 import android.content.Context;
 import android.graphics.PixelFormat;

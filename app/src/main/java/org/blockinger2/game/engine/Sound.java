@@ -1,4 +1,4 @@
-package org.blockinger2.game.components;
+package org.blockinger2.game.engine;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

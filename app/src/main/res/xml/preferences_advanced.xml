@@ -10,7 +10,7 @@
         android:key="pref_rng"
         android:title="@string/pref_rng_title" />
 
-    <org.blockinger2.game.SeekBarPreference
+    <org.blockinger2.game.views.SeekBarPreference
         android:defaultValue="7"
         android:key="pref_softdropspeed"
         android:max="30"
@@ -25,7 +25,7 @@
         android:summary="@string/pref_accelerationV_summary"
         android:title="@string/pref_accelerationV_title" />
 
-    <org.blockinger2.game.SeekBarPreference
+    <org.blockinger2.game.views.SeekBarPreference
         android:defaultValue="4"
         android:key="pref_movespeed"
         android:max="20"

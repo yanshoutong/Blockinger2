@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import org.blockinger2.game.R;
-import org.blockinger2.game.Row;
-import org.blockinger2.game.Square;
+import org.blockinger2.game.engine.Row;
+import org.blockinger2.game.engine.Square;
 import org.blockinger2.game.activities.GameActivity;
 
 public class Board extends Component

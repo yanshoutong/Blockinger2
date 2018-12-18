@@ -91,7 +91,7 @@
 
     </LinearLayout>
 
-    <org.blockinger2.game.BlockBoardView
+    <org.blockinger2.game.views.BlockBoardView
         android:id="@+id/boardView"
         android:layout_width="0dp"
         android:layout_height="match_parent"

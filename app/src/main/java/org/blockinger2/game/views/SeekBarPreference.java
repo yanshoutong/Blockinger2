@@ -1,4 +1,4 @@
-package org.blockinger2.game;
+package org.blockinger2.game.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import org.blockinger2.game.R;
 
 public class SeekBarPreference extends Preference implements OnSeekBarChangeListener
 {

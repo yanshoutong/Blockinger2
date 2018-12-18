@@ -1,9 +1,11 @@
-package org.blockinger2.game;
+package org.blockinger2.game.engine;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import org.blockinger2.game.R;
 
 public class Square
 {

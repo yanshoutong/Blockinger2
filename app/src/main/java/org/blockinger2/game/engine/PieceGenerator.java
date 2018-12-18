@@ -1,4 +1,4 @@
-package org.blockinger2.game;
+package org.blockinger2.game.engine;
 
 import java.util.Random;
 

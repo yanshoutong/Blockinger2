@@ -2,7 +2,7 @@ package org.blockinger2.game.pieces;
 
 import android.content.Context;
 
-import org.blockinger2.game.Square;
+import org.blockinger2.game.engine.Square;
 
 public class LPiece extends Piece3x3
 {

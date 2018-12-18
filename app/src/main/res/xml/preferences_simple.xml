@@ -18,7 +18,7 @@
         android:key="sound_settings"
         android:title="@string/pref_category_sound">
 
-        <org.blockinger2.game.SeekBarPreference
+        <org.blockinger2.game.views.SeekBarPreference
             android:defaultValue="40"
             android:key="pref_soundvolume"
             android:max="100"
@@ -32,7 +32,7 @@
             android:key="pref_button_sound"
             android:title="@string/pref_button_sound_title" />
 
-        <org.blockinger2.game.SeekBarPreference
+        <org.blockinger2.game.views.SeekBarPreference
             android:defaultValue="30"
             android:key="pref_musicvolume"
             android:max="100"

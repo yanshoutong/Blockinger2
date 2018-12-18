@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="activities.GameActivity">
 
-    <org.blockinger2.game.BlockBoardView
+    <org.blockinger2.game.views.BlockBoardView
         android:id="@+id/boardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

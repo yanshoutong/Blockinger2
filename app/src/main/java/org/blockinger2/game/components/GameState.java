@@ -3,7 +3,7 @@ package org.blockinger2.game.components;
 import android.R.color;
 import android.preference.PreferenceManager;
 
-import org.blockinger2.game.PieceGenerator;
+import org.blockinger2.game.engine.PieceGenerator;
 import org.blockinger2.game.R;
 import org.blockinger2.game.activities.GameActivity;
 import org.blockinger2.game.pieces.IPiece;

@@ -1,9 +1,10 @@
-package org.blockinger2.game;
+package org.blockinger2.game.engine;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import org.blockinger2.game.R;
 import org.blockinger2.game.components.Board;
 
 public class Animator

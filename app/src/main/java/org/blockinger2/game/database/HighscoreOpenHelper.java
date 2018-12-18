@@ -1,4 +1,4 @@
-package org.blockinger2.game.db;
+package org.blockinger2.game.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
