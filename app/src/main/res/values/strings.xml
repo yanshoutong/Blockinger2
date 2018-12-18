@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Blockinger</string>
+    <string name="app_name" translatable="false">Blockinger2</string>
+    <string name="app_codename" translatable="false">blockinger2</string>
     <string name="action_settings">Settings</string>
     <string name="action_backtomain">Back</string>
     <string name="action_about">About</string>
@@ -19,7 +20,7 @@
     <string name="startLevelDialogCancel">Cancel</string>
     <string name="startLevelDialogStart">Start</string>
 
-    <string name="title_activity_game">Blockinger</string>
+    <string name="title_activity_game" translatable="false">Blockinger2</string>
     <string name="title_activity_help">Help</string>
     <string name="score_title">Score</string>
     <string name="level_title">Level</string>
@@ -109,22 +110,25 @@
     <string name="pref_layoutswap_summary">Swap the position of soft drop button and hard drop button</string>
     <string name="pref_layoutswap_title">Swap Drop Buttons</string>
 
-
-    <string name="pref_version_summary">1.8.2\nTouch here to view the public repository of this project</string>
+    <string name="pref_version_summary">2.0.0\nTouch here to view the public repository of this project</string>
     <string name="pref_version_title">Version</string>
-    <string name="repository_url">https://github.com/vocollapse/Blockinger</string>
+    <string name="repository_url" translatable="false">https://github.com/tasioleiva/Blockinger2</string>
 
     <string name="pref_license_summary">Blockinger is free software: licensed under the GNU General Public License (GPLv3) as published by the Free Software Foundation.\nTouch here to view this license online</string>
     <string name="pref_license_title">License Information</string>
-    <string name="license_url">http://www.gnu.org/licenses/gpl-3.0</string>
+    <string name="license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0</string>
 
     <string name="pref_license_music_summary">\"lemmings in love (karaoke)\" and \"sad robot (karaoke)\" by Pornophonique. Licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Germany license (CC BY-NC-SA 3.0 DE).\nTouch here to open the artist\'s website</string>
     <string name="pref_license_music_title">Music Attribution</string>
-    <string name="music_url">http://www.pornophonique.de</string>
+    <string name="music_url" translatable="false">http://www.pornophonique.de</string>
 
-    <string name="pref_author_summary">Simon Willeke\nTouch here to contact the author for suggestions, feedback or anything related to this project</string>
+    <string name="pref_maintainer_summary">Tasio Leiva\nTouch here to contact the maintainer for suggestions, feedback or anything related to this project</string>
+    <string name="pref_maintainer_title">Maintainer</string>
+    <string name="pref_maintainer_url" translatable="false">contact@tasioleiva.com</string>
+
+    <string name="pref_author_summary">Simon Willeke\nTouch here to visit the original repository before it was forked</string>
     <string name="pref_author_title">Author</string>
-    <string name="pref_author_url">rasyl@web.de</string>
+    <string name="pref_author_url" translatable="false">https://github.com/vocollapse/Blockinger</string>
 
     <string name="pref_donate_title">Donate</string>
     <string name="pref_donate_summary">If you are grateful for this Software and would like to let the Author benefit as well, you can place a Donation as you like.</string>

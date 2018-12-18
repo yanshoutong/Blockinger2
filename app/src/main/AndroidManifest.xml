@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.blockinger.game"
-    android:versionName="1.8.2" >
+    package="org.blockinger2.game"
+    android:versionName="2.0.0" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <supports-screens android:normalScreens="true" android:smallScreens="true" android:largeScreens="true" android:resizeable="true" android:anyDensity="true" android:xlargeScreens="true"/>
@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.blockinger.game.activities.MainActivity"
+            android:name="org.blockinger2.game.activities.MainActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:icon="@drawable/iconinger_v2"
             android:label="@string/app_name"
@@ -24,37 +24,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.blockinger.game.activities.GameActivity"
+            android:name="org.blockinger2.game.activities.GameActivity"
             android:label="@string/title_activity_game"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="org.blockinger.game.activities.SettingsActivity"
+            android:name="org.blockinger2.game.activities.SettingsActivity"
             android:icon="@drawable/ic_settings"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="org.blockinger.game.activities.AdvancedSettingsActivity"
+            android:name="org.blockinger2.game.activities.AdvancedSettingsActivity"
             android:icon="@drawable/ic_settings"
             android:label="@string/pref_category_advanced" >
         </activity>
         <activity
-            android:name="org.blockinger.game.activities.AboutActivity"
+            android:name="org.blockinger2.game.activities.AboutActivity"
             android:icon="@drawable/iconinger_v2"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="org.blockinger.game.activities.HelpActivity"
+            android:name="org.blockinger2.game.activities.HelpActivity"
             android:label="@string/title_activity_help" >
         </activity>
 
-        <!-- <receiver android:name="org.blockinger.game.components.NoiseBroadcastReceiver">
+        <!-- <receiver android:name="org.blockinger2.game.components.NoiseBroadcastReceiver">
            <intent-filter>
               <action android:name="android.media.AUDIO_BECOMING_NOISY" />
            </intent-filter>
         </receiver>
 
-        <receiver android:name="org.blockinger.game.components.RingerModeChangeReceiver">
+        <receiver android:name="org.blockinger2.game.components.RingerModeChangeReceiver">
            <intent-filter>
               <action android:name="AudioManager.RINGER_MODE_CHANGED_ACTION" />
            </intent-filter>
