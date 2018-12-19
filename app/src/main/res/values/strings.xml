@@ -37,7 +37,6 @@
     <string name="scoreLabel">Score:</string>
     <string name="timeLabel">Time:</string>
     <string name="apmLabel">Total APM:</string>
-    <string name="hint">Hint: Blockinger is playable in both screen orientations.</string>
     <string name="highscore_title">Highscores</string>
 
     <string name="musicAuthorNote">music by pornophonique</string>

@@ -42,8 +42,7 @@ public class DefeatDialogFragment extends DialogFragment
                 getResources().getString(R.string.timeLabel) +
                 "\n    " + timeString + "\n\n" +
                 getResources().getString(R.string.apmLabel) +
-                "\n    " + apmString + "\n\n" +
-                getResources().getString(R.string.hint)
+                "\n    " + apmString
         );
 
         builder.setNeutralButton(R.string.defeatDialogReturn, (dialog, which) -> ((GameActivity) getActivity()).putScore(score));
